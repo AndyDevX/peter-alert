@@ -1,14 +1,13 @@
 FROM php:8.2-apache
 
-# Copia TODO el contenido del proyecto (incluyendo index.php y assets)
+# Copia TODO el proyecto, incluyendo la carpeta assets
 COPY . /var/www/html/
 
-# Habilita módulos de Apache necesarios
-RUN a2enmod rewrite headers
+# Configura ServerName para Apache
+RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
-# Establece el archivo índice predeterminado
-RUN echo "DirectoryIndex index.php" > /etc/apache2/conf-available/directory-index.conf
-RUN a2enconf directory-index
+# Habilita módulos necesarios
+RUN a2enmod rewrite
 
-# Permisos para el directorio
-RUN chown -R www-data:www-data /var/www/html
+# Establece permisos para la carpeta assets
+RUN chown -R www-data:www-data /var/www/html/assets
