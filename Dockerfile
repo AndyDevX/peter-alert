@@ -1,15 +1,14 @@
 FROM php:8.2-apache
 
-# Instala dependencias del sistema
-RUN apt-get update && apt-get install -y \
-    libzip-dev \
-    zip \
-    && docker-php-ext-install zip
-
-# Configura Apache
+# Copia TODO el contenido del proyecto (incluyendo index.php y assets)
 COPY . /var/www/html/
-RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
+
+# Habilita módulos de Apache necesarios
 RUN a2enmod rewrite headers
 
-# Permisos
-RUN chmod -R 755 /var/www/html/assets
+# Establece el archivo índice predeterminado
+RUN echo "DirectoryIndex index.php" > /etc/apache2/conf-available/directory-index.conf
+RUN a2enconf directory-index
+
+# Permisos para el directorio
+RUN chown -R www-data:www-data /var/www/html

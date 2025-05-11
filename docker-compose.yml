@@ -1,10 +1,8 @@
-version: '3.8'
-
 services:
   web:
     build: .
     ports:
       - "8080:80"
+    # Si necesitas montar solo assets (no toda la carpeta):
     volumes:
-      - ./:/var/www/html
-    restart: unless-stopped
+      - ./assets:/var/www/html/assets
