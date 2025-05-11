@@ -30,6 +30,10 @@ include 'getData.php';
         }
 
         document.getElementById("papeada").addEventListener("click", function() {
+            const audio = document.getElementById("alertAudio");
+            audio.currentTime = 0;  // Reinicia el audio si ya estaba reproduciendo
+            audio.play().catch(error => console.log("Error al reproducir audio:", error));
+
             Swal.fire({
                 title: "Peter Alert",
                 imageUrl: "assets/peter.jpg",
@@ -47,12 +51,17 @@ include 'getData.php';
                         <p><strong>Referencia:</strong> ${formatField('pagina_referer')}</p>
                     </div>
                 `,
-                confirmButtonText: "Depositarle 1 BTC a Andy",
+                showConfirmButton: false,
                 customClass: {
                     popup: 'swal-custom'
                 }
             });
         });
     </script>
+
+    <audio id="alertAudio" hidden>
+        <source src="assets/peter.mp3" type="audio/mpeg">
+        Tu navegador no soporta audio HTML5.
+    </audio>
 </body>
 </html>

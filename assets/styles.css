@@ -50,3 +50,8 @@ button:hover {
     color: #2c3f9b;
     font-size: 1.5em;
 }
+
+/* En assets/styles.css */
+#alertAudio {
+    display: none; /* Asegura que el reproductor esté oculto */
+}
